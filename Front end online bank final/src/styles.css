@@ -1,0 +1,73 @@
+/* Global Dark Theme */
+body {
+  background-color: #121212;
+  color: #ffffff;
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding-top: 60px; /* Ensures space for the fixed navbar */
+  padding-bottom: 7px;
+  overflow-x: hidden; /* Prevents horizontal scrolling */
+}
+
+/* Global Button Styling */
+button {
+  background: #1e88e5;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background 0.3s ease, transform 0.2s ease-in-out;
+}
+
+button:hover {
+  background: #1565c0;
+  transform: scale(1.05); /* Slight scaling effect on hover */
+}
+
+/* Page Container */
+.main-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+  
+}
+
+/* Navbar & Footer Fix */
+app-navbar,
+app-footer {
+  width: 100%;
+}
+
+/* Smooth Scroll for Better UX */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Links Styling (General) */
+a {
+  color: #00c4cc;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: #00eaff;
+}
+
+/* Responsive Fix */
+@media (max-width: 768px) {
+  .main-container {
+    padding: 15px;
+    margin-top: 120px;
+  }
+
+  button {
+    width: 100%; /* Makes buttons full width on mobile for better UX */
+  }
+}

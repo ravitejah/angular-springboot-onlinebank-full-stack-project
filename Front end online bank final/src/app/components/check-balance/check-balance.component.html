@@ -1,0 +1,29 @@
+<div class="check-balance-container">
+  <h2>Check Account Balance</h2>
+
+  <!-- Error Message -->
+  <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+
+  <!-- Balance Check Form -->
+  <form (ngSubmit)="checkBalance()" #checkBalanceForm="ngForm">
+    <div class="form-group">
+      <label for="account">Select Account:</label>
+      <select id="account" [(ngModel)]="selectedAccountNumber" name="account" required>
+        <option value="" disabled selected>Select an account</option>
+        <option *ngFor="let account of accounts" [value]="account.accountNumber">
+          {{ account.accountNumber }}
+        </option>
+      </select>
+    </div>
+
+    <button type="submit" [disabled]="checkBalanceForm.invalid">
+      Check Balance
+    </button>
+  </form>
+
+  <!-- Display Balance -->
+  <div *ngIf="balance !== null" class="balance-display">
+    <h3>Account Balance</h3>
+    <p><strong>Balance:</strong> ₹{{ balance }}</p>
+  </div>
+</div>

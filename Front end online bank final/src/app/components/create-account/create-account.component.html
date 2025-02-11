@@ -1,0 +1,34 @@
+<div class="create-account-container">
+  <h2>Create New Account</h2>
+
+  <!-- Display Success or Error Message -->
+  <p *ngIf="successMessage" class="success-message">{{ successMessage }}</p>
+  <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+
+  <!-- Account Creation Form -->
+  <form (ngSubmit)="createAccount()" #createAccountForm="ngForm">
+    <div class="form-group">
+      <label for="balance">Initial Balance:</label>
+      <input
+        type="number"
+        id="balance"
+        name="balance"
+        [(ngModel)]="accountData.balance"
+        required
+        min="0"
+      />
+    </div>
+    <button type="submit" [disabled]="createAccountForm.invalid">
+      Create Account
+    </button>
+  </form>
+
+  <!-- Display Created Account Details Below Form -->
+  <div *ngIf="createdAccount" class="account-details">
+    <h3>🎉 Account Created Successfully</h3>
+    <p><strong>Account Number:</strong> {{ createdAccount.accountNumber }}</p>
+    <p><strong>Balance:</strong> ₹{{ createdAccount.balance }}</p>
+    <p><strong>Owner:</strong> {{ createdAccount.bankUserName }}</p>
+    <p><strong>Email:</strong> {{ createdAccount.email }}</p>
+  </div>
+</div>

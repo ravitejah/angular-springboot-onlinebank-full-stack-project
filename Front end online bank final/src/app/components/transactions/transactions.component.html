@@ -1,0 +1,81 @@
+<div class="transaction-container">
+  <h2>Manage Transactions</h2>
+
+ 
+
+  <!-- Perform Transaction Form -->
+  <form (ngSubmit)="performTransaction()" class="transaction-form">
+    <div class="input-group">
+      <label>Select Account:</label>
+      <div class="custom-select">
+        <select [(ngModel)]="transactionRequest.accountId" name="accountId" required>
+          <option value="" disabled>Select an account</option>
+          <option *ngFor="let account of accounts" [value]="account.id">
+            {{ account.accountNumber }} (Balance: ₹{{ account.balance }})
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="input-group">
+      <label>Transaction Type:</label>
+      <div class="custom-select">
+        <select [(ngModel)]="transactionRequest.transactionType" name="transactionType" required>
+          <option value="DEBIT">Debit</option>
+          <option value="CREDIT">Credit</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="input-group">
+      <label>Amount:</label>
+      <input type="number" [(ngModel)]="transactionRequest.amount" name="amount" required min="1"
+             placeholder="Enter amount"/>
+    </div>
+
+    <button type="submit">Perform Transaction</button>
+
+       <!-- Success & Error Messages -->
+      <p *ngIf="successMessage" class="success-message">{{ successMessage }}</p>
+      <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+  </form>
+  <br>
+  <h3>Your Transactions</h3>
+    <!-- Filter & Sorting -->
+    <div class="filters">
+      <label>Filter:</label>
+      <select [(ngModel)]="selectedFilter" (change)="filterTransactions()">
+        <option value="ALL">All</option>
+        <option value="CREDIT">Credit</option>
+        <option value="DEBIT">Debit</option>
+      </select>
+  
+      <label>Sort:</label>
+      <button (click)="toggleSortOrder()">
+        {{ sortOrder === 'desc' ? 'Latest First' : 'Oldest First' }}
+      </button>
+    </div>
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Type</th>
+      <th>Amount</th>
+      <th>Account Number</th>
+      <th>Date</th>
+    </tr>
+    <tr *ngFor="let transaction of filteredTransactions">
+      <td>{{ transaction.transactionId }}</td>
+      <td>
+        <span [class.debit]="transaction.transactionType === 'DEBIT'" 
+              [class.credit]="transaction.transactionType === 'CREDIT'"
+              [class.loancredit]="transaction.transactionType === 'LOAN CREDIT'"
+              >
+          {{ transaction.transactionType }}
+        </span>
+      </td>
+      <td>₹{{ transaction.amount }}</td>
+      <td>{{ transaction.accountNumber }}</td>
+      <td>{{ transaction.transactionDateTime | date:'short' }}</td>
+    </tr>
+  </table>
+</div>

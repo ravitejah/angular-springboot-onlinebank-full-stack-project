@@ -1,0 +1,101 @@
+/* ✅ Navbar Container */
+nav {
+  background-color: #1e1e1e;
+  padding: 12px 20px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.logout{
+  cursor: pointer;
+}
+
+
+/* ✅ Navbar Flexbox Layout */
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 30px;
+  
+}
+
+/* ✅ Navbar List Styling */
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+/* ✅ Left-side Navigation */
+.nav-left {
+  display: flex;
+  gap: 15px;
+}
+
+/* ✅ Right-side Navigation (Register, Login, Profile, Logout) */
+.nav-right {
+  display: flex;
+  gap: 15px;
+  margin-left: auto;
+ 
+}
+
+/* ✅ Navbar Items */
+nav ul li {
+  display: inline-block;
+}
+
+/* ✅ Navbar Links */
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 10px 16px;
+  transition: all 0.3s ease;
+  border-radius: 5px;
+}
+
+/* ✅ Hover Effect */
+nav ul li a:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+/* ✅ Active Link */
+nav ul li a.router-link-active {
+  background: #00c4cc;
+  color: #1e1e1e;
+  font-weight: bold;
+}
+
+/* ✅ Responsive Navbar for Mobile */
+@media screen and (max-width: 768px) {
+  .nav-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  nav ul {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .nav-left, .nav-right {
+    width: 100%;
+    justify-content: center;
+  }
+
+  nav ul li {
+    margin: 8px;
+  }
+}

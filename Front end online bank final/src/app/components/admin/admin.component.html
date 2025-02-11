@@ -1,0 +1,162 @@
+<div class="admin-container">
+  <h2>Admin Panel</h2>
+
+  <!-- ✅ Mini Navigation -->
+  <div class="mini-nav">
+    <button (click)="switchTab('users')" [class.active]="activeTab === 'users'">Users</button>
+    <button (click)="switchTab('accounts')" [class.active]="activeTab === 'accounts'">Accounts</button>
+    <button (click)="switchTab('transactions')" [class.active]="activeTab === 'transactions'">Transactions</button>
+    <button (click)="switchTab('loans')" [class.active]="activeTab === 'loans'">Loans</button>
+  </div>
+
+     <!-- ✅ Success & Error Messages -->
+     <p *ngIf="successMessage" class="success-message">{{ successMessage }}</p>
+     <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+
+  <!-- ✅ Users Management -->
+  <div *ngIf="activeTab === 'users'">
+    <h3>All Users</h3>
+    <table>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Mobile</th>
+        <th>Actions</th>
+      </tr>
+      <tr *ngFor="let user of users">
+        <td>{{ user.id }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.mobileNumber }}</td>
+        <td>
+          <button class="edit-btn" (click)="selectUser(user)">Edit</button>
+          <button class="delete-btn" (click)="deleteUser(user.id)">Delete</button>
+        </td>
+      </tr>
+    </table>
+
+      <!-- ✅ Edit User Form -->
+  <div *ngIf="selectedUser" class="edit-user-form">
+    <h3>Edit User</h3>
+    <input type="text" [(ngModel)]="selectedUser.name" placeholder="Name" />
+    <input type="text" [(ngModel)]="selectedUser.email" placeholder="Email" />
+    <input type="text" [(ngModel)]="selectedUser.mobileNumber" placeholder="Mobile" />
+    <button (click)="updateUser()">Update</button>
+  </div>
+  </div>
+
+
+
+  <!-- ✅ Accounts Management -->
+  <div *ngIf="activeTab === 'accounts'">
+    <h3>All Accounts</h3>
+    <table>
+      <tr>
+        <th>Account Number</th>
+        <th>Balance</th>
+        <th>Update Balance</th>
+      </tr>
+      <tr *ngFor="let account of accounts">
+        <td>{{ account.accountNumber }}</td>
+        <td>₹{{ account.balance }}</td>
+        <td>
+          <input type="number" [(ngModel)]="account.newBalance" placeholder="New Balance" />
+          <button class="update-btn" (click)="updateBalance(account)">Update</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  
+  <!-- ✅ Transactions Management with Sorting & Filter -->
+  <div *ngIf="activeTab === 'transactions'">
+    <h3>All Transactions</h3>
+
+    <div class="filters">
+      <label>Filter:</label>
+      <select [(ngModel)]="selectedFilter" (change)="filterTransactions()">
+        <option value="ALL">All</option>
+        <option value="CREDIT">Credit</option>
+        <option value="DEBIT">Debit</option>
+      </select>
+
+      <label>Sort:</label>
+      <button (click)="toggleSortOrder()">
+        {{ sortOrder === 'desc' ? 'Latest First' : 'Oldest First' }}
+      </button>
+    </div>
+
+    <table>
+      <tr>
+        <th>ID</th>
+        <th>Type</th>
+        <th>Amount</th>
+        <th>Account</th>
+        <th>Date</th>
+      </tr>
+        <tr *ngFor="let transaction of filteredTransactions">
+          <td>{{ transaction.transactionId }}</td>
+          <td>
+            <span [class.debit]="transaction.transactionType === 'DEBIT'"
+                  [class.credit]="transaction.transactionType === 'CREDIT'"
+                  [class.loancredit]="transaction.transactionType === 'LOAN CREDIT'"
+                  >
+              {{ transaction.transactionType }}
+            </span>
+          </td>
+          <td>₹{{ transaction.amount }}</td>
+          <td>{{ transaction.accountNumber }}</td>
+          <td>{{ transaction.transactionDateTime | date:'short' }}</td>
+        </tr>
+      
+    </table>
+  </div>
+
+  <!-- ✅ Loans Management with Modal -->
+  <div *ngIf="activeTab === 'loans'">
+    <h3>All Loan Applications</h3>
+    <table>
+      <tr>
+        <th>Loan ID</th>
+        <th>Amount</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+      <tr *ngFor="let loan of loans">
+        <td>{{ loan.id }}</td>
+        <td>₹{{ loan.amount }}</td>
+        <td><span [class.approved]="loan.status=== 'APPROVED'"
+          [class.rejected]="loan.status === 'REJECTED'"
+          [class.pending]="loan.status === 'PENDING'"
+          >{{ loan.status }}</span></td>
+        <td>
+          @if(loan.status==='APPROVED'  ){
+             
+            <p style="color:rgb(0, 255, 0) ; font-weight: 900;">Loan already approved</p>
+          }
+          @else if (loan.status==='REJECTED') {
+            <p style="color: rgb(255, 0, 0); font-weight: 900;">Loan already rejected </p>
+          }
+          @else {
+          <button (click)="openLoanModal(loan)">Review</button>
+          }
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- ✅ Loan Approval Modal -->
+  <div class="modal" *ngIf="showLoanModal">
+    <div class="modal-content">
+      <h3>Review Loan Application</h3>
+      <p><strong>Loan ID:</strong> {{ selectedLoan?.id }}</p>
+      <p><strong>Amount:</strong> ₹{{ selectedLoan?.amount }}</p>
+      <p><strong>Status:</strong> {{ selectedLoan?.status }}</p>
+
+      <button class="approve" (click)="approveLoan(true)">Approve</button>
+      <button class="reject" (click)="approveLoan(false)">Reject</button>
+      <button class="close" (click)="closeLoanModal()">Close</button>
+    </div>
+  </div>
+</div>

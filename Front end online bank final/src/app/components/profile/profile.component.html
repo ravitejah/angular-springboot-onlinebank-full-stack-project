@@ -1,0 +1,29 @@
+<div class="profile-container">
+  <h2>User Profile</h2>
+
+  <!-- Loading Indicator -->
+  <div *ngIf="isLoading" class="loading">
+      <p>Loading...</p>
+  </div>
+
+  <!-- Profile Details -->
+  <div *ngIf="!isLoading" class="profile-content">
+      <div class="profile-info">
+          <div class="profile-item">
+              <span class="label">Name:</span> <span class="value">{{ user.name }}</span>
+          </div>
+          <div class="profile-item">
+              <span class="label">Email:</span> <span class="value">{{ user.email }}</span>
+          </div>
+          <div class="profile-item">
+              <span class="label">User ID:</span> <span class="value">{{ user.id }}</span>
+          </div>
+          <div class="profile-item">
+              <span class="label">Mobile:</span> <span class="value">{{ user.mobileNumber }}</span>
+          </div>
+      </div>
+
+      <!-- Change Password Button -->
+      <button class="change-password-btn" (click)="goToChangePassword()">Change Password</button>
+  </div>
+</div>

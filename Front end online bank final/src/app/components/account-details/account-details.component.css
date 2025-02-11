@@ -1,0 +1,40 @@
+.account-details-container {
+  max-width: 600px;
+  margin: 30px auto;
+  padding: 20px;
+  background: linear-gradient(135deg, #2c2c2c, #1e1e1e);
+  color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+h2 {
+  margin-bottom: 20px;
+  font-size: 1.8em;
+  color: #00d1ff;
+}
+
+.error {
+  color: #ff4c4c;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.details-card {
+  background: #333;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+
+.details-card p {
+  font-size: 1.1em;
+  margin: 10px 0;
+  color: #e6e6e6;
+}
+
+.details-card strong {
+  color: #00d1ff;
+}

@@ -1,0 +1,27 @@
+<div class="accounts-container">
+  <h2>Your Accounts</h2>
+
+  <!-- Error message -->
+  <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Account Number</th>
+          <th>Account Id</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let account of accounts">
+          <td>{{ account.accountNumber }}</td>
+          <td>{{ account.id }}</td>
+          <td>
+            <button class="view-btn" (click)="viewAccount(account)">View Details</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
